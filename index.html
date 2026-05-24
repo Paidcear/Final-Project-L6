@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>AI Impact · Julio César Delgado Mora</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(circle at 20% 30%, #0a0f1c, #03050b);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .presentation-container {
+      max-width: 1300px;
+      width: 100%;
+      background: rgba(12, 18, 28, 0.65);
+      backdrop-filter: blur(12px);
+      border-radius: 3rem;
+      border: 1px solid rgba(0, 255, 255, 0.25);
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 255, 255, 0.1) inset;
+      padding: 2rem;
+    }
+
+    .slide-area {
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .slide {
+      display: none;
+      animation: fadeSlide 0.45s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    @keyframes fadeSlide {
+      0% { opacity: 0; transform: translateY(18px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #FFFFFF 0%, #7ae9ff 45%, #3b82f6 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .slide h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #bbf0ff;
+      border-left: 5px solid #0ff;
+      padding-left: 1rem;
+      margin: 1rem 0 0.8rem;
+    }
+
+    .slide h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #b3e4ff;
+      margin: 0.8rem 0 0.3rem;
+    }
+
+    .slide p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      color: #eef4ff;
+      margin-bottom: 0.8rem;
+    }
+
+    .highlight {
+      background: rgba(0, 255, 255, 0.1);
+      border-left: 3px solid #0ff;
+      padding: 0.6rem 1rem;
+      border-radius: 1rem;
+      margin: 0.8rem 0;
+    }
+
+    .quote {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #c0fffa;
+      text-align: center;
+      background: rgba(0, 30, 40, 0.6);
+      border-radius: 2rem;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #0e2a3b;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      color: #0ff;
+      letter-spacing: 1px;
+      margin-bottom: 0.8rem;
+    }
+
+    /* Tech card (para el texto de la imagen) */
+    .tech-card {
+      background: #07161f;
+      border: 1px solid rgba(0, 255, 255, 0.4);
+      border-radius: 1.5rem;
+      padding: 1.2rem;
+      margin: 1rem 0;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    .tech-card h4 {
+      color: #0ff;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    .tech-card .sub {
+      color: #7bc5d9;
+      font-size: 0.9rem;
+      border-bottom: 1px dashed #0ff3;
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.8rem;
+    }
+    .formula {
+      background: #021826;
+      padding: 0.8rem;
+      border-radius: 1rem;
+      font-family: monospace;
+      font-size: 1rem;
+      color: #aaffff;
+      text-align: center;
+      margin: 0.8rem 0;
+    }
+    .two-columns {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .col {
+      flex: 1;
+      background: #05161f;
+      padding: 0.7rem;
+      border-radius: 1rem;
+    }
+
+    /* Tarjeta para imagen fija desde código */
+    .image-card-fixed {
+      background: #07161f;
+      border: 1px solid rgba(0, 255, 255, 0.5);
+      border-radius: 1.5rem;
+      padding: 1rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+    .image-card-fixed img {
+      max-width: 100%;
+      max-height: 320px;
+      border-radius: 1rem;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+    }
+    .image-caption {
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: #7aa9bb;
+    }
+
+    .nav-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .nav-btn {
+      background: rgba(20, 30, 45, 0.8);
+      border: 1px solid rgba(0, 255, 255, 0.5);
+      color: #0ff;
+      font-weight: 600;
+      padding: 0.6rem 1.5rem;
+      border-radius: 3rem;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: 0.25s;
+      font-family: inherit;
+    }
+    .nav-btn:hover {
+      background: #0ff22a20;
+      border-color: #0ff;
+      box-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
+    }
+    .indicators {
+      display: flex;
+      gap: 12px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 0.4rem 1.2rem;
+      border-radius: 60px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #3b6f8a;
+      cursor: pointer;
+    }
+    .dot.active-dot {
+      background: #0ff;
+      box-shadow: 0 0 8px #0ff;
+      width: 24px;
+      border-radius: 12px;
+    }
+    .slide-counter {
+      font-family: monospace;
+      color: #5aa9c9;
+      background: rgba(0,0,0,0.4);
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+    }
+    hr {
+      border-color: rgba(0, 255, 255, 0.2);
+      margin: 0.8rem 0;
+    }
+    @media (max-width: 680px) {
+      .presentation-container { padding: 1.2rem; }
+      .slide h1 { font-size: 2rem; }
+      .slide p { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="presentation-container">
+  <div class="slide-area">
+    <!-- SLIDE 1 - Introducción -->
+    <div class="slide active" id="slide1">
+      <div class="badge">Julio César Delgado Mora</div>
+      <h1>How AI will impact<br>my career field</h1>
+      <p style="font-size:1.2rem; font-weight:500;">Computer Science & Software Development</p>
+      <div class="highlight">
+        <p>"The artificial intelligence is becoming very important in a lot jobs. I´m a computer sciencist, I do development and technical documentation."</p>
+      </div>
+      <p>I use ChatGPT and Claude. The IA <strong>have a big impact</strong> on my daily tasks. But <strong>if we don't use it with responsability</strong>, the results could be not good.</p>
+      <p><strong>Reported speech:</strong> My teacher said that IA is a tool, not a replacement. I agree.</p>
+    </div>
+
+    <!-- SLIDE 2 - How IA helps me now (breve) -->
+    <div class="slide" id="slide2">
+      <div class="badge">AUGMENTED DEV</div>
+      <h2>How IA helps me now</h2>
+      <p>IA allows me to analyze code and concepts I don't dominate. When I need to understand a new library, IA explains step by step.</p>
+      <p>It teaches me better technical documentation. My english is not perfect, so IA helps me understand documents in english.</p>
+      <p>Another benefit: IA helps me generate cleaner code. If I ask to refactor a function, the result is more structured. I learn while using it.</p>
+      <div class="quote">
+        "Students who only copy paste without thinking are going to have problems in the future."
+      </div>
+    </div>
+
+    <!-- SLIDE 3 - Tech card con el contenido textual de la imagen (Historias de Usuaria) -->
+    <div class="slide" id="slide3">
+      <div class="badge">RESPONSIBLE AI</div>
+      <h2>My opinion about future with IA</h2>
+      <p>IA is powerful but we need to be careful. <strong>If a person only copy paste what the IA gives</strong>, then the work could be bad because he or she learns nothing. <strong>But if you use the IA to improve what you already know</strong>, it becomes a really good tool.</p>
+      <h3>Real example: User Stories & Business Rules</h3>
+      <p>I've been redacting User Histories (technical documents). The hardest part: develop <strong>Business Rules</strong>. I have to think a lot and see the future to prevent mistakes. It's the soul of the system.</p>
+      
+      <!-- Tech card fiel al contenido de tu imagen -->
+      <div class="tech-card">
+        <h4>Historias de Usuaria: El Corazón del Desarrollo Ágil en el CJF</h4>
+        <div class="sub">¿Qué es una Historia de Usuaria? | ¿Por qué son importantes para el desarrollo?</div>
+        <div class="two-columns">
+          <div class="col">
+            <strong style="color:#0ff;">Descripción centrada en la persona usuaria:</strong>
+            <p style="font-size:0.9rem; margin-top:6px;">Es una explicación breve y no técnica de una funcionalidad desde la perspectiva del usuario.</p>
+          </div>
+          <div class="col">
+            <strong style="color:#0ff;">Un lenguaje común para todos</strong>
+            <p style="font-size:0.9rem; margin-top:6px;">Utiliza términos sencillos para brindar contexto al equipo técnico sin complicaciones innecesarias.</p>
+          </div>
+        </div>
+        <div class="formula">
+          <strong>La fórmula del valor:</strong><br>
+          Como [rol], quiero [acción] para [beneficio]
+        </div>
+        <div style="text-align: center; margin-top: 0.5rem; font-style: italic; color: #8dd0e0;">
+          Historias de Usuaria (DNHU): El puente entre necesidades operativas y la implementación técnica
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4 - Imagen desde código (fija, reemplazar src por tu archivo local) -->
+    <div class="slide" id="slide4">
+      <div class="badge">VISUAL REFERENCE</div>
+      <h2>User Stories Diagram</h2>
+      <p>Below you can see the original image about User Stories in agile development.</p>
+      <div class="image-card-fixed">
+        <img src="Historias_de_usuaria__desarrollo_ágil.png"
+             alt="User Stories diagram">
+      </div>
+    </div>
+
+    <!-- SLIDE 5 - Conclusión final -->
+    <div class="slide" id="slide5">
+      <div class="badge">FINAL THOUGHT</div>
+      <h2>IA & Human synergy</h2>
+      <p>If we combine cognitive skills with IA speed, we become better engineers. Responsible use = high quality deliverables.</p>
+      <div class="quote">
+        “IA it’s smart and powerful as a the person to talks whit it.”
+      </div>
+      <p>No copy paste without brain. Be curious, learn every day.</p>
+      <hr>
+      <p style="text-align:center;">Thank you — Drink beer >:D</p>
+    </div>
+  </div>
+
+  <div class="nav-controls">
+    <button class="nav-btn" id="prevBtn">BACK</button>
+    <div style="display: flex; gap: 20px; align-items: center;">
+      <div class="indicators" id="dotsContainer"></div>
+      <div class="slide-counter" id="counterSlide">1 / 5</div>
+    </div>
+    <button class="nav-btn" id="nextBtn">NEXT</button>
+  </div>
+  <div style="margin-top: 1rem; text-align: center; font-size: 0.75rem; color: #3e778f;">
+    Final project | English Level 6
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const prevButton = document.getElementById('prevBtn');
+  const nextButton = document.getElementById('nextBtn');
+  const counterSpan = document.getElementById('counterSlide');
+  const dotsContainer = document.getElementById('dotsContainer');
+  let currentIdx = 0;
+  const totalSlides = slides.length;
+
+  function updateSlides() {
+    slides.forEach((slide, idx) => {
+      slide.classList.toggle('active', idx === currentIdx);
+    });
+    counterSpan.innerText = `${currentIdx+1} / ${totalSlides}`;
+    const allDots = document.querySelectorAll('.dot');
+    allDots.forEach((dot, i) => {
+      if (i === currentIdx) dot.classList.add('active-dot');
+      else dot.classList.remove('active-dot');
+    });
+  }
+
+  function createDots() {
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      if (i === currentIdx) dot.classList.add('active-dot');
+      dot.addEventListener('click', () => {
+        currentIdx = i;
+        updateSlides();
+      });
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  function nextSlide() {
+    if (currentIdx < totalSlides - 1) {
+      currentIdx++;
+      updateSlides();
+    }
+  }
+  function prevSlide() {
+    if (currentIdx > 0) {
+      currentIdx--;
+      updateSlides();
+    }
+  }
+
+  nextButton.addEventListener('click', nextSlide);
+  prevButton.addEventListener('click', prevSlide);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') { nextSlide(); e.preventDefault(); }
+    else if (e.key === 'ArrowLeft') { prevSlide(); e.preventDefault(); }
+  });
+
+  createDots();
+  updateSlides();
+</script>
+</body>
+</html>
